@@ -2,9 +2,11 @@
     "welcome":"welcome",
     "description":"This is a multi-language app.",
     "title_add":"add task",
-    "alert":"Please enter task",
+    "alert":"Please enter",
     "title_list_task": "To do list",
     "button_add":"add",
+     "add_name":"Enter name",
+     "hi_me":"Hi me",
     "filter": {
     "all": "All",
     "completed": "Completed",
