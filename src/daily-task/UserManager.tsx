@@ -7,6 +7,7 @@ import { addUser, updateUser, deleteUser, type User } from '../redux/userSlice';
 const UserManager: React.FC = () => {
   const users = useSelector((state: RootState) => state.user.users);
   const dispatch = useDispatch<AppDispatch>();
+
   const [form, setForm] = useState<User>({
     id: '',
     name: '',
@@ -33,16 +34,15 @@ const UserManager: React.FC = () => {
   };
 
   return (
-    <div >
-      <h2 >Quản lý tài khoản</h2>
+    <div className="flex justify-center items-center h-screen mt-4 p-4">
+      <h2 className="mb-4">Quản lý tài khoản</h2>
 
-      <div>
+      <div >
         <input
           type="text"
           placeholder="Tên"
           value={form.name}
           onChange={e => setForm({ ...form, name: e.target.value })}
-         
         />
         <input
           type="email"
@@ -59,23 +59,21 @@ const UserManager: React.FC = () => {
         </button>
       </div>
 
-      <ul className="space-y-2">
+      <ul>
         {users.map(user => (
           <li key={user.id} >
             <div>
               <p><strong>{user.name}</strong></p>
               <p>{user.email}</p>
             </div>
-            <div >
+            <div className="space-x-2">
               <button
                 onClick={() => handleEdit(user)}
-                
               >
                 Sửa
               </button>
               <button
                 onClick={() => dispatch(deleteUser(user.id))}
-               
               >
                 Xoá
               </button>
