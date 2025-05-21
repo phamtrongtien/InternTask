@@ -74,42 +74,51 @@ const Task2: React.FC = () => {
     };
 
     return (
-        <div className="m-10" style={{ padding: '20px' }}>
-            <Button onClick={() => changeLanguage('vn')}>Tiếng Việt</Button>
-            <Button onClick={() => changeLanguage('en')} style={{ marginLeft: 10 }}>English</Button>
-
-            <div className='p-10'>
-                <h1>{t('title_add')}</h1>
-                <Input
-                    ref={inputRef}
-                    placeholder={t('title_add')}
-                    value={task}
-                    onChange={(e) => setTask(e.target.value)}
-                    onPressEnter={handleAdd}
-                    style={{ width: 300, marginRight: 10 }}
-                />
-                <Button type="primary" onClick={handleAdd}>{t('button_add')}</Button>
-
+        <div className="min-h-screen flex items-center justify-center">
+        <div className="p-5 bg-white shadow-lg">
+          <div className="flex">
+            <Button className='m-10' onClick={() => changeLanguage('vn')}>Tiếng Việt</Button>
+            <Button onClick={() => changeLanguage('en')}>English</Button>
+          </div>
+      
+          <div className="p-10 flex">
+            <h1 className="text-2xl font-bold mb-4">{t('title_add')}</h1>
+            <div className="flex items-center mb-6">
+              <Input
+                ref={inputRef}
+                placeholder={t('title_add')}
+                value={task}
+                onChange={(e) => setTask(e.target.value)}
+                onPressEnter={handleAdd}
+                className="w-72 mr-3 m-10"
+              />
+              <Button type="primary" onClick={handleAdd}>{t('button_add')}</Button>
             </div>
-            <h2 style={{ marginTop: 30 }}>{t('title_list_task')}</h2>
-
-            <Radio.Group
-                onChange={(e) => dispatch(setFilter(e.target.value))}
-                value={filter}
-                style={{ marginBottom: 16 }}
-            >
-                <Radio.Button value="all">{t('filter.all')}</Radio.Button>
-                <Radio.Button value="completed">{t('filter.completed')}</Radio.Button>
-                <Radio.Button value="pending">{t('filter.pending')}</Radio.Button>
-            </Radio.Group>
-
-            <Table dataSource={filteredTasks} columns={columns} pagination={false} rowKey="id" />
-
+          </div>
+      
+          <h2 className="mt-8 mb-4 text-xl font-semibold">{t('title_list_task')}</h2>
+      
+          <Radio.Group
+            onChange={(e) => dispatch(setFilter(e.target.value))}
+            value={filter}
+            className="mb-4"
+          >
+            <Radio.Button value="all">{t('filter.all')}</Radio.Button>
+            <Radio.Button value="completed">{t('filter.completed')}</Radio.Button>
+            <Radio.Button value="pending">{t('filter.pending')}</Radio.Button>
+          </Radio.Group>
+      
+          <Table dataSource={filteredTasks} columns={columns} pagination={false} rowKey="id" />
+      
+          <div className="mt-6 space-y-1 text-sm text-gray-700">
             <p>{t('title_footer.total_task')}: {tasks.length}</p>
             <p>{t('title_footer.task_done')}: {tasks.filter(t => t.completed).map(t => t.title).join(', ')}</p>
             <p>{t('title_footer.number_task_done')}: {completedCount}</p>
             <p>{t('title_footer.number_task_reject')}: {remainingCount}</p>
+          </div>
         </div>
+      </div>
+      
     );
 };
 

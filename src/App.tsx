@@ -1,4 +1,5 @@
 import './App.css'
+import Greeting from './daily-task/Greeting';
 import Task1 from './daily-task/Task1'
 import Task2 from './daily-task/Task2';
 import { Route, Routes } from 'react-router-dom';
@@ -13,13 +14,18 @@ function App(): React.ReactElement {
       <nav>
         <Link to='/task1'>Task1</Link>      |
         <Link to='/task2'>Task2</Link>
+        <Link to='/greeting'>greeting</Link>
+
       </nav>
       <div>
         <Routes>
           <Route path='/task1' element={<Task1 />} />
-          <Route path='/task2' element={<Task2/>}/>
+          <Route path='/task2' element={<Task2 />} />
+          <Route path='/greeting' element={<Greeting/>}/>
+          
         </Routes>
       </div>
+  
       </div>
 
    
