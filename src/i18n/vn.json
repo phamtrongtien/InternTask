@@ -1,0 +1,24 @@
+{
+    "welcome":"Chào mừng",
+    "description":"Đây là một ứng dụng đa ngôn ngữ",
+    "title_add":"Thêm công việc",
+    "alert":"Vui lòng nhập công việc",
+    "title_list_task":"Danh sách công việc",
+    "button_add": "Thêm",
+    "filter": {
+    "all": "Tất cả",
+    "completed": "Đã hoàn thành",
+    "pending": "Chưa làm"
+  },
+  "title_table":{
+    "check":"Hoàn thành",
+    "name": "Công việc",
+    "action":"Hành động"
+  },
+  "title_footer":{
+    "total_task":"Tổng nhiệm vụ",
+    "task_done":"Nhiệm vụ đã hoàn thành",
+    "number_task_done":"Số nhiệm vụ đã hoàn thành",
+    "number_task_reject":"Số nhiệm vj chưa hoàn thành"
+  }
+}

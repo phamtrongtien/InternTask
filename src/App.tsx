@@ -1,25 +1,28 @@
-import { useState } from 'react'
-
 import './App.css'
-import Task1 from './dailytask/Task1'
+import Task1 from './daily-task/Task1'
+import Task2 from './daily-task/Task2';
+import { Route, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function App() {
-  const [count, setCount] = useState(0)
+function App(): React.ReactElement {
 
   return (
-    <>
-      <div>
-        
-      </div>
-     
+
+ 
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-       <Task1/>
+      <nav>
+        <Link to='/task1'>Task1</Link>      |
+        <Link to='/task2'>Task2</Link>
+      </nav>
+      <div>
+        <Routes>
+          <Route path='/task1' element={<Task1 />} />
+          <Route path='/task2' element={<Task2/>}/>
+        </Routes>
+      </div>
       </div>
 
-    </>
+   
   )
 }
 
