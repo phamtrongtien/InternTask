@@ -1,0 +1,244 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Làm bài tập React",
+      "completed": false
+    },
+    {
+      "id": "2",
+      "title": "Học Redux Toolkit",
+      "completed": true
+    },
+    {
+      "id": "3",
+      "title": "Xem tutorial useMemo",
+      "completed": false
+    },
+    {
+      "id": "4",
+      "title": "Tạo project quản lý task",
+      "completed": true
+    },
+    {
+      "id": "5",
+      "title": "Cập nhật CV",
+      "completed": false
+    },
+    {
+      "id": "6",
+      "title": "Đọc tài liệu về API",
+      "completed": true
+    },
+    {
+      "id": "7",
+      "title": "Luyện tập Ant Design Table",
+      "completed": false
+    },
+    {
+      "id": "8",
+      "title": "Tạo component Task2",
+      "completed": false
+    },
+    {
+      "id": "9",
+      "title": "Thử nghiệm filter completed",
+      "completed": true
+    },
+    {
+      "id": "10",
+      "title": "Tối ưu hiệu năng với useMemo",
+      "completed": false
+    },
+    {
+      "id": "11",
+      "title": "Cập nhật i18n",
+      "completed": false
+    },
+    {
+      "id": "12",
+      "title": "Học cách dùng useSelector",
+      "completed": true
+    },
+    {
+      "id": "13",
+      "title": "Fix lỗi UI",
+      "completed": false
+    },
+    {
+      "id": "14",
+      "title": "Cài đặt json-server",
+      "completed": true
+    },
+    {
+      "id": "15",
+      "title": "Test giao diện Task2",
+      "completed": false
+    },
+    {
+      "id": "16",
+      "title": "Thêm chức năng toggle",
+      "completed": true
+    },
+    {
+      "id": "17",
+      "title": "Tạo Redux slice",
+      "completed": false
+    },
+    {
+      "id": "18",
+      "title": "Tạo alert khi input rỗng",
+      "completed": true
+    },
+    {
+      "id": "19",
+      "title": "Viết style cho bảng",
+      "completed": false
+    },
+    {
+      "id": "20",
+      "title": "Tìm hiểu RowKey Table",
+      "completed": false
+    },
+    {
+      "id": "21",
+      "title": "Cập nhật giao diện filter",
+      "completed": false
+    },
+    {
+      "id": "22",
+      "title": "Viết hàm tính số task hoàn thành",
+      "completed": true
+    },
+    {
+      "id": "23",
+      "title": "Thêm tính năng xóa",
+      "completed": false
+    },
+    {
+      "id": "24",
+      "title": "Tạo confirm khi xóa",
+      "completed": false
+    },
+    {
+      "id": "25",
+      "title": "Tối ưu render",
+      "completed": true
+    },
+    {
+      "id": "26",
+      "title": "Thêm spacing cho input",
+      "completed": false
+    },
+    {
+      "id": "27",
+      "title": "Dịch nội dung i18n",
+      "completed": true
+    },
+    {
+      "id": "28",
+      "title": "Test với nhiều dữ liệu",
+      "completed": false
+    },
+    {
+      "id": "29",
+      "title": "Kiểm tra task chưa hoàn thành",
+      "completed": true
+    },
+    {
+      "id": "30",
+      "title": "Giả lập dữ liệu bằng db.json",
+      "completed": false
+    },
+    {
+      "id": "31",
+      "title": "Tối ưu performance filter",
+      "completed": false
+    },
+    {
+      "id": "32",
+      "title": "Tách component nhỏ hơn",
+      "completed": true
+    },
+    {
+      "id": "33",
+      "title": "Viết unit test",
+      "completed": false
+    },
+    {
+      "id": "34",
+      "title": "Thêm redux persist",
+      "completed": true
+    },
+    {
+      "id": "35",
+      "title": "Bắt lỗi nhập liệu",
+      "completed": false
+    },
+    {
+      "id": "36",
+      "title": "Bổ sung pagination",
+      "completed": true
+    },
+    {
+      "id": "37",
+      "title": "Thêm trạng thái loading",
+      "completed": false
+    },
+    {
+      "id": "38",
+      "title": "Tự động focus input",
+      "completed": false
+    },
+    {
+      "id": "39",
+      "title": "Giới hạn độ dài task",
+      "completed": false
+    },
+    {
+      "id": "40",
+      "title": "Tạo theme màu",
+      "completed": true
+    },
+    {
+      "id": "41",
+      "title": "Hỗ trợ dark mode",
+      "completed": false
+    },
+    {
+      "id": "42",
+      "title": "Kiểm tra hiệu năng bảng",
+      "completed": true
+    },
+    {
+      "id": "43",
+      "title": "Tự động scroll xuống cuối",
+      "completed": false
+    },
+    {
+      "id": "44",
+      "title": "Tạo log khi thêm task",
+      "completed": false
+    },
+    {
+      "id": "45",
+      "title": "Lưu task vào localStorage",
+      "completed": true
+    },
+    {
+      "id": "46",
+      "title": "Tách i18n riêng",
+      "completed": false
+    },
+    {
+      "id": "47",
+      "title": "Hiển thị thời gian thêm task",
+      "completed": false
+    },
+    {
+      "id": "48",
+      "title": "Ẩn hiện task theo điều kiện",
+      "completed": false
+    }
+  ]
+}
