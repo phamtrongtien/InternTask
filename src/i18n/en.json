@@ -1,26 +1,31 @@
 {
-    "welcome":"welcome",
-    "description":"This is a multi-language app.",
-    "title_add":"add task",
-    "alert":"Please enter",
-    "title_list_task": "To do list",
-    "button_add":"add",
-     "add_name":"Enter name",
-     "hi_me":"Hi me",
-    "filter": {
+  "welcome": "welcome",
+  "description": "This is a multi-language app.",
+  "title_add": "add task",
+  "alert": "Please enter",
+  "title_list_task": "To do list",
+  "button_add": "add",
+  "add_name": "Enter name",
+  "hi_me": "Hi me",
+  "title_manager":"Account Management",
+  "name":"Name",
+  "update":"Update",
+  "delete":"Delete",
+  "add":"Add new",
+  "filter": {
     "all": "All",
     "completed": "Completed",
     "pending": "Pending"
   },
-  "title_table":{
-    "check":"Checked",
+  "title_table": {
+    "check": "Checked",
     "name": "Task",
-    "action":"Action"
+    "action": "Action"
   },
-  "title_footer":{
-    "total_task":"Total Task",
-    "task_done":"Task Done",
-    "number_task_done":"Number of completed tasks",
-"number_task_reject":"Number of uncompleted tasks"
+  "title_footer": {
+    "total_task": "Total Task",
+    "task_done": "Task Done",
+    "number_task_done": "Number of completed tasks",
+    "number_task_reject": "Number of uncompleted tasks"
   }
 }

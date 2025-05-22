@@ -1,26 +1,31 @@
 {
-    "welcome":"Chào mừng",
-    "description":"Đây là một ứng dụng đa ngôn ngữ",
-    "title_add":"Thêm công việc",
-    "alert":"Vui lòng nhập không được để trống",
-    "title_list_task":"Danh sách công việc",
-    "button_add": "Thêm",
-     "add_name":"Nhập tên của bạn",
-    "filter": {
+  "welcome": "Chào mừng",
+  "description": "Đây là một ứng dụng đa ngôn ngữ",
+  "title_add": "Thêm công việc",
+  "alert": "Vui lòng nhập không được để trống",
+  "title_list_task": "Danh sách công việc",
+  "button_add": "Thêm",
+  "add_name": "Nhập tên của bạn",
+  "hi_me": "chào tôi",
+  "title_manager": "Quản lý tài khoản",
+  "name":"Tên",
+  "update":"Cập nhật",
+  "delete":"Xóa",
+  "add":"Thêm mới",
+  "filter": {
     "all": "Tất cả",
     "completed": "Đã hoàn thành",
     "pending": "Chưa làm"
-   
   },
-  "title_table":{
-    "check":"Hoàn thành",
+  "title_table": {
+    "check": "Hoàn thành",
     "name": "Công việc",
-    "action":"Hành động"
+    "action": "Hành động"
   },
-  "title_footer":{
-    "total_task":"Tổng nhiệm vụ",
-    "task_done":"Nhiệm vụ đã hoàn thành",
-    "number_task_done":"Số nhiệm vụ đã hoàn thành",
-    "number_task_reject":"Số nhiệm vj chưa hoàn thành"
+  "title_footer": {
+    "total_task": "Tổng nhiệm vụ",
+    "task_done": "Nhiệm vụ đã hoàn thành",
+    "number_task_done": "Số nhiệm vụ đã hoàn thành",
+    "number_task_reject": "Số nhiệm vj chưa hoàn thành"
   }
 }

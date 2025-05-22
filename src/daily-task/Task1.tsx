@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { Table, Input, Button, Checkbox, Radio } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { useTranslation } from 'react-i18next';
 
 
 interface Task {
@@ -16,12 +17,12 @@ const Task1: React.FC = () => {
     { id: 'todo-1', title: 'Ly tuyet', completed: false },
     { id: 'todo-2', title: 'Baitap1', completed: false },
   ]);
-
+  const { t } = useTranslation();
   const inputRef = useRef<null>(null);
   const [filter, setFilter] = useState<'all' | 'completed' | 'pending'>('all');
   const idCounter = useRef<number>(0);
-  idCounter.current = taskList.length; 
-  
+  idCounter.current = taskList.length;
+
 
   const handleAdd = useCallback(() => {
     if (task.trim() === '') {
@@ -36,7 +37,7 @@ const Task1: React.FC = () => {
     };
     setTaskList(prev => [...prev, newTask]);
     setTask('');
- 
+
   }, [task]);
 
   const toggleItem = useCallback((id: string) => {
@@ -66,7 +67,7 @@ const Task1: React.FC = () => {
 
   const columns: ColumnsType<Task> = [
     {
-      title: 'Hoàn thành',
+      title: t('title_table.check'),
       dataIndex: 'completed',
       key: 'completed',
       render: (_, record) => (
@@ -79,12 +80,12 @@ const Task1: React.FC = () => {
       key: 'id',
     },
     {
-      title: 'Công việc',
+      title: t('title_table.name'),
       dataIndex: 'title',
       key: 'title',
     },
     {
-      title: 'Hành động',
+      title: t('title_table.action'),
       dataIndex: 'completed',
       key: 'action',
       render: (_, record) => (
@@ -105,41 +106,42 @@ const Task1: React.FC = () => {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>Nhập công việc mới</h1>
+      <h1 className="text-2xl font-bold mb-4">{t('title_add')}</h1>
+
       <Input
         ref={inputRef}
-        placeholder="Nhập công việc"
+        placeholder={t('title_add')}
         value={task}
         onChange={(e) => setTask(e.target.value)}
         onPressEnter={handleAdd}
         style={{ width: '300px', marginRight: '10px' }}
       />
-      <Button type="primary" onClick={handleAdd}>Thêm</Button>
+      <Button type="primary" onClick={handleAdd}>{t('button_add')}</Button>
 
-      <h1 style={{ marginTop: '30px' }}>DANH SÁCH CÔNG VIỆC</h1>
+      <h1 style={{ marginTop: '30px' }}>{t('title_list_task')}</h1>
 
       <Radio.Group
         onChange={e => setFilter(e.target.value)}
         value={filter}
         style={{ marginBottom: 16 }}
       >
-        <Radio.Button value="all">Tất cả</Radio.Button>
-        <Radio.Button value="completed">Hoàn thành</Radio.Button>
-        <Radio.Button value="pending">Chưa hoàn thành</Radio.Button>
+        <Radio.Button value="all">{t('filter.all')}</Radio.Button>
+        <Radio.Button value="completed">{t('filter.completed')}</Radio.Button>
+        <Radio.Button value="pending">{t('filter.pending')}</Radio.Button>
       </Radio.Group>
 
       <Table dataSource={filteredTasks} columns={columns} pagination={false} rowKey="id" />
 
-      <p>Tổng công việc: {taskList.length}</p>
+      <p>{t('title_footer.total_task')}: {taskList.length}</p>
       <p>
-        Kế hoạch đã làm: {taskList
+        {t('title_footer.task_done')}: {taskList
           .filter(item => item.completed)
           .map(item => item.title)
           .join(', ')}
       </p>
 
-      <p>Công việc đã hoàn thành: {completedCount}</p>
-      <p>Công việc còn lại: {remainingCount}</p>
+      <p>{t('title_footer.number_task_done')}: {completedCount}</p>
+      <p>{t('title_footer.number_task_reject')}: {remainingCount}</p>
     </div>
   );
 };

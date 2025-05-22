@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const Greeting: React.FC = () => {
+
   const [name, setName] = useState<string>('');
   const [greeting, setGreeting] = useState<string>('');
     const { t, i18n } = useTranslation();

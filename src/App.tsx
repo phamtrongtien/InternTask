@@ -1,36 +1,52 @@
-import './App.css'
+import './App.css';
 import Greeting from './daily-task/Greeting';
-import Task1 from './daily-task/Task1'
+import Task1 from './daily-task/Task1';
 import Task2 from './daily-task/Task2';
-import { Route, Routes } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import UserManager from './daily-task/UserManager';
+import { Route, Routes, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function App(): React.ReactElement {
+  const { i18n } = useTranslation();
+
+  const changeLanguage = (lng: 'en' | 'vn') => {
+    i18n.changeLanguage(lng);
+  };
 
   return (
+    <div className="min-h-screen bg-gray-50 p-4">
+      <nav className="flex justify-between items-center mb-6 p-4 bg-white rounded shadow">
+        <div className="space-x-4">
+          <Link to="/task1" className="text-blue-600 hover:underline">Task1</Link>
+          <Link to="/task2" className="text-blue-600 hover:underline">Task2</Link>
+          <Link to="/greeting" className="text-blue-600 hover:underline">Greeting</Link>
+          <Link to="/userManager" className="text-blue-600 hover:underline">UserManager</Link>
+        </div>
 
- 
-      <div className="card">
-      <nav>
-        <Link to='/task1'>Task1</Link>      |
-        <Link to='/task2'>Task2</Link>
-        <Link to='/greeting'>greeting</Link>
-<Link to='/userManager'>UserManager</Link>
+        <div className="space-x-2">
+          <button
+            onClick={() => changeLanguage('vn')}
+            className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            Tiếng Việt
+          </button>
+          <button
+            onClick={() => changeLanguage('en')}
+            className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            English
+          </button>
+        </div>
       </nav>
-      <div>
-        <Routes>
-          <Route path='/task1' element={<Task1 />} />
-          <Route path='/task2' element={<Task2 />} />
-          <Route path='/greeting' element={<Greeting/>}/>
-          <Route path='/userManager' element={<UserManager/>}/>
-        </Routes>
-      </div>
-  
-      </div>
 
-   
-  )
+      <Routes>
+        <Route path="/task1" element={<Task1 />} />
+        <Route path="/task2" element={<Task2 />} />
+        <Route path="/greeting" element={<Greeting />} />
+        <Route path="/userManager" element={<UserManager />} />
+      </Routes>
+    </div>
+  );
 }
 
-export default App
+export default App;

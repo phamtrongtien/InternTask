@@ -1,21 +1,34 @@
 // src/components/Task2.tsx
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useRef, useState, useMemo, useEffect } from 'react';
 import { Table, Input, Button, Checkbox, Radio } from 'antd';
 import { useTranslation } from 'react-i18next';
 import type { ColumnsType } from 'antd/es/table';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../redux/store';
-import { addTask, toggleTask, deleteTask, setFilter } from '../redux/taskSlice';
+import { addTask, toggleTask, deleteTask, setFilter, setTasks } from '../redux/taskSlice'; 
+import { addT, deleteT, getT } from '../service/taskApi'
 
 const Task2: React.FC = () => {
     const [task, setTask] = useState('');
     const inputRef = useRef(null);
     const dispatch = useDispatch();
-    const { t, i18n } = useTranslation();
-    const changeLanguage = (lng: 'en' | 'vn') => {
-        i18n.changeLanguage(lng);
-    };
+    const { t } = useTranslation();
+
     const { tasks, filter } = useSelector((state: RootState) => state.tasks);
+
+    const counter = useRef(0);
+    useEffect(() => {
+        async function fetchTasks() {
+            try {
+                const data = await getT();
+                counter.current = data.length;
+                dispatch(setTasks(data));
+            } catch (error) {
+                console.error('Failed to fetch tasks:', error);
+            }
+        }
+        fetchTasks();
+    }, [dispatch]);
 
     const filteredTasks = useMemo(() => {
         if (filter === 'completed') return tasks.filter(task => task.completed);
@@ -23,12 +36,20 @@ const Task2: React.FC = () => {
         return tasks;
     }, [tasks, filter]);
 
-    const handleAdd = () => {
+    const handleAdd = async (e) => {
+        e.preventDefault();
+
         if (task.trim() === '') {
             alert(t('alert'));
             return;
         }
-        dispatch(addTask(task.trim()));
+        const newTask = {
+            id: (counter.current+=1).toString(),
+            title: task.trim(),
+            completed: false,
+        };
+        await addT(newTask)
+        dispatch(addTask(newTask));
         setTask('');
     };
 
@@ -58,9 +79,18 @@ const Task2: React.FC = () => {
             title: t('title_table.action'),
             key: 'action',
             render: (_, record) => (
-                <Button danger onClick={() => {
+                <Button danger htmlType="button"  onClick={async () => {
                     const confirm = window.confirm(t('confirm_delete') || 'Xác nhận xóa?');
-                    if (confirm) dispatch(deleteTask(record.id));
+                    if (confirm) {
+                        try {
+                            console.log(record.id)
+                            await deleteT(record.id); 
+                            dispatch(deleteTask(record.id));
+                            counter.current -= 1;
+                        } catch (err) {
+                            alert(t('delete_failed') || 'Xóa thất bại!');
+                        }
+                    }
                 }}>
                     Xóa
                 </Button>
@@ -71,15 +101,9 @@ const Task2: React.FC = () => {
     const completedCount = tasks.filter(t => t.completed).length;
     const remainingCount = tasks.length - completedCount;
 
- 
-
     return (
         <div className="min-h-screen flex items-center justify-center">
             <div className="p-5 bg-white shadow-lg">
-                <div className="flex">
-                    <Button onClick={() => changeLanguage('vn')} style={{ color: 'red', padding: '10px', margin: '10px' }}>Tiếng Việt</Button>
-                    <Button onClick={() => changeLanguage('en')} style={{ color: 'blue', padding: '10px', margin: '10px' }}>English</Button>
-                </div>
 
                 <div className="p-10 flex">
                     <h1 className="text-2xl font-bold mb-4">{t('title_add')}</h1>
@@ -92,7 +116,7 @@ const Task2: React.FC = () => {
                             onPressEnter={handleAdd}
                             className="w-72 m-10"
                         />
-                        <Button type="primary" onClick={handleAdd}>{t('button_add')}</Button>
+                        <Button type="primary" htmlType="button" onClick={handleAdd}>{t('button_add')}</Button>
                     </div>
                 </div>
 
@@ -108,7 +132,8 @@ const Task2: React.FC = () => {
                     <Radio.Button value="pending">{t('filter.pending')}</Radio.Button>
                 </Radio.Group>
 
-                <Table dataSource={filteredTasks} columns={columns} pagination={false} rowKey="id" />
+                <Table dataSource={filteredTasks} columns={columns} pagination={{ pageSize: 15 }} rowKey="id" />
+
 
                 <div className="mt-6 space-y-1 text-sm text-gray-700">
                     <p>{t('title_footer.total_task')}: {tasks.length}</p>
@@ -118,7 +143,6 @@ const Task2: React.FC = () => {
                 </div>
             </div>
         </div>
-
     );
 };
 
