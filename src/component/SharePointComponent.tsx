@@ -1,45 +1,69 @@
 import React from "react";
-import {
-  useMsal,
-  useIsAuthenticated,
-
-} from "@azure/msal-react";
+import { useMsal, useIsAuthenticated } from "@azure/msal-react";
+import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import { loginRequest } from "../../authConfig";
 
 const SharePointLogin: React.FC = () => {
   const { instance, accounts } = useMsal();
   const isAuthenticated = useIsAuthenticated();
 
+  const account = accounts && accounts.length > 0 ? accounts[0] : null;
   const handleLogin = () => {
-    instance.loginPopup(loginRequest).catch(console.error);
+    instance.loginPopup(loginRequest)
+      .then((response) => {
+        alert(response)
+        console.log("Đăng nhập thành công:", response);
+      })
+      .catch((error) => {
+        console.error("Login error chi tiết:", error);
+        alert(`Đăng nhập thất bại, vui lòng thử lại.\nLỗi: ${error.message || error}`);
+      });
   };
+  
 
   const handleLogout = () => {
-    instance.logoutPopup();
+    instance.logoutPopup().catch((error) => {
+      console.error("Logout error:", error);
+    });
   };
 
   const getAccessToken = async (): Promise<string | null> => {
+    if (!account) {
+      alert("Không tìm thấy tài khoản đăng nhập.");
+      return null;
+    }
     try {
       const response = await instance.acquireTokenSilent({
         ...loginRequest,
-        account: accounts[0],
+        account: account,
       });
       return response.accessToken;
     } catch (error) {
-      if (error) {
-        const response = await instance.acquireTokenPopup(loginRequest);
-        return response.accessToken;
+      if (error instanceof InteractionRequiredAuthError) {
+        try {
+          const response = await instance.acquireTokenPopup(loginRequest);
+          return response.accessToken;
+        } catch (popupError) {
+          console.error("Acquire token popup error:", popupError);
+          alert("Lấy token thất bại.");
+          return null;
+        }
+      } else {
+        console.error("Acquire token silent error:", error);
+        alert("Lấy token thất bại.");
+        return null;
       }
-      console.error(error);
-      return null;
     }
   };
 
   const fetchSharePointSite = async () => {
     const accessToken = await getAccessToken();
-    if (!accessToken) return;
+    if (!accessToken) {
+      alert("Không thể lấy token truy cập.");
+      return;
+    }
 
-    const siteUrl = "https://1work.sharepoint.com/sites/eofficev3";
+    const siteUrl = "https://work1.sharepoint.com/sites/eofficev3";
     const endpoint = `${siteUrl}/_api/web`;
 
     try {
@@ -50,13 +74,16 @@ const SharePointLogin: React.FC = () => {
         },
       });
 
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const data = await response.json();
       alert("Tên site SharePoint: " + data.d.Title);
       console.log(data);
     } catch (error) {
       console.error("Lỗi gọi API SharePoint:", error);
+      alert("Lỗi khi gọi API SharePoint.");
     }
   };
 
@@ -71,7 +98,7 @@ const SharePointLogin: React.FC = () => {
         </button>
       ) : (
         <div>
-          <p className="mb-4">Xin chào, {accounts[0].username}</p>
+          <p className="mb-4">Xin chào, {account?.username}</p>
           <button
             onClick={fetchSharePointSite}
             className="mr-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
