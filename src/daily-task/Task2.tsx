@@ -36,9 +36,8 @@ const Task2: React.FC = () => {
         return tasks;
     }, [tasks, filter]);
 
-    const handleAdd = async (e) => {
-        e.preventDefault();
-
+    const handleAdd = async () => {
+ 
         if (task.trim() === '') {
             alert(t('alert'));
             return;
@@ -87,12 +86,12 @@ const Task2: React.FC = () => {
                             await deleteT(record.id); 
                             dispatch(deleteTask(record.id));
                             counter.current -= 1;
-                        } catch (err) {
+                        } catch {
                             alert(t('delete_failed') || 'Xóa thất bại!');
                         }
                     }
                 }}>
-                    Xóa
+                    {t('delete')}
                 </Button>
             ),
         },
@@ -106,17 +105,17 @@ const Task2: React.FC = () => {
             <div className="p-5 bg-white shadow-lg">
 
                 <div className="p-10 flex">
-                    <h1 className="text-2xl font-bold mb-4">{t('title_add')}</h1>
-                    <div className="flex items-center mb-6">
+                    <h1 className="text-2xl font-bold mb-4 mx-2">{t('title_add')}</h1>
+                    <div className=" mb-6 ">
                         <Input
                             ref={inputRef}
                             placeholder={t('title_add')}
                             value={task}
                             onChange={(e) => setTask(e.target.value)}
                             onPressEnter={handleAdd}
-                            className="w-72 m-10"
+                            className="w-72 m-4"
                         />
-                        <Button type="primary" htmlType="button" onClick={handleAdd}>{t('button_add')}</Button>
+                        <Button  className="mt-2 w-20" type="primary" htmlType="button" onClick={handleAdd}>{t('button_add')}</Button>
                     </div>
                 </div>
 

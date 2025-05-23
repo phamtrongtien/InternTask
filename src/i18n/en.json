@@ -1,10 +1,10 @@
 {
-  "welcome": "welcome",
+  "welcome": "Welcome",
   "description": "This is a multi-language app.",
-  "title_add": "add task",
+  "title_add": "Add task",
   "alert": "Please enter",
   "title_list_task": "To do list",
-  "button_add": "add",
+  "button_add": "Add",
   "add_name": "Enter name",
   "hi_me": "Hi me",
   "title_manager":"Account Management",

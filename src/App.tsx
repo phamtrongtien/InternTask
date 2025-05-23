@@ -5,6 +5,7 @@ import Task2 from './daily-task/Task2';
 import UserManager from './daily-task/UserManager';
 import { Route, Routes, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import SharePointLogin from './component/SharePointComponent';
 
 function App(): React.ReactElement {
   const { i18n } = useTranslation();
@@ -21,6 +22,8 @@ function App(): React.ReactElement {
           <Link to="/task2" className="text-blue-600 hover:underline">Task2</Link>
           <Link to="/greeting" className="text-blue-600 hover:underline">Greeting</Link>
           <Link to="/userManager" className="text-blue-600 hover:underline">UserManager</Link>
+          <Link to="/sp" className="text-blue-600 hover:underline">Sp</Link>
+
         </div>
 
         <div className="space-x-2">
@@ -44,6 +47,7 @@ function App(): React.ReactElement {
         <Route path="/task2" element={<Task2 />} />
         <Route path="/greeting" element={<Greeting />} />
         <Route path="/userManager" element={<UserManager />} />
+        <Route path='/sp' element={<SharePointLogin/>}/>
       </Routes>
     </div>
   );
