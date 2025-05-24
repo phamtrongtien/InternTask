@@ -3,7 +3,7 @@ import { useMsal, useIsAuthenticated } from "@azure/msal-react";
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import { loginRequest } from "../../authConfig";
 
-const SharePointLogin: React.FC = () => {
+const Task3: React.FC = () => {
   const { instance, accounts } = useMsal();
   const isAuthenticated = useIsAuthenticated();
 
@@ -117,4 +117,4 @@ const SharePointLogin: React.FC = () => {
   );
 };
 
-export default SharePointLogin;
+export default Task3;

@@ -1,11 +1,15 @@
 import './App.css';
-import Greeting from './daily-task/Greeting';
+import Greeting from './component/Greeting';
 import Task1 from './daily-task/Task1';
 import Task2 from './daily-task/Task2';
-import UserManager from './daily-task/UserManager';
+import UserManager from './component/UserManager';
 import { Route, Routes, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import SharePointLogin from './component/SharePointComponent';
+// import SharePointLogin from './component/SharePointComponent';
+import Home from './component/Home';
+import Task3 from './daily-task/Task3';
+
+
 
 function App(): React.ReactElement {
   const { i18n } = useTranslation();
@@ -20,9 +24,14 @@ function App(): React.ReactElement {
         <div className="space-x-4">
           <Link to="/task1" className="text-blue-600 hover:underline">Task1</Link>
           <Link to="/task2" className="text-blue-600 hover:underline">Task2</Link>
+          <Link to="/Task3" className="text-blue-600 hover:underline">Task3</Link>
+
           <Link to="/greeting" className="text-blue-600 hover:underline">Greeting</Link>
           <Link to="/userManager" className="text-blue-600 hover:underline">UserManager</Link>
-          <Link to="/sp" className="text-blue-600 hover:underline">Sp</Link>
+          {/* <Link to="/sp" className="text-blue-600 hover:underline">Sp</Link> */}
+          <Link to="/home" className="text-blue-600 hover:underline">Home</Link>
+
+
 
         </div>
 
@@ -47,7 +56,9 @@ function App(): React.ReactElement {
         <Route path="/task2" element={<Task2 />} />
         <Route path="/greeting" element={<Greeting />} />
         <Route path="/userManager" element={<UserManager />} />
-        <Route path='/sp' element={<SharePointLogin/>}/>
+        {/* <Route path='/sp' element={<SharePointLogin />} /> */}
+        <Route path='/home' element={<Home />} />
+        <Route path='/task3' element={<Task3/>}/>
       </Routes>
     </div>
   );
