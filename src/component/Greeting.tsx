@@ -1,51 +1,45 @@
-
+import { Button, message, Upload } from 'antd';
+import axios from 'axios';
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { UploadOutlined } from '@ant-design/icons';
 
 const Greeting: React.FC = () => {
-
-  const [name, setName] = useState<string>('');
-  const [greeting, setGreeting] = useState<string>('');
-    const { t, i18n } = useTranslation();
-    const changeLanguage = (lng:'en'|'vn') => {
-        i18n.changeLanguage(lng);
-    }
-  const handleGreet = () => {
-    if (name.trim() === '') {
-      alert(t('alert'))
-      return;
-    }
-    setGreeting(`Xin chào, ${name}!`);
+  const [hello, setHello] = useState('');
+  const props = {
+    name: 'file',
+    action: 'http://localhost:3000/api/upload', // API backend upload file
+    onChange(info: any) {
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
   };
 
-  return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
-          <button onClick={()=>changeLanguage('vn')}>
-              Tiếng việt
-          </button>
-          <button onClick={()=>changeLanguage('en')}>
-              English
-        </button>
-          <h1 className="text-3xl font-bold mb-6 text-gray-800">{ t('welcome')}</h1>
-      
-      <input
-        type="text"
-        placeholder={t('add_name')}
-        value={name}
-        onChange={e => setName(e.target.value)}
-        className="border border-gray-300 rounded-md p-2 w-64 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
-      />
-      
-      <button
-        onClick={handleGreet}
-        className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
-      >
-        {t('hi_me')}
-      </button>
+  const handleFetchHello = async () => {
+    try {
+      const res = await axios.get(`http://localhost:3000/hello`);
+      return res.data;
 
-      {greeting && (
-        <p className="mt-6 text-xl text-green-600 font-semibold">{greeting}</p>
-      )}
+    } catch (error) {
+      console.error("Lỗi khi gọi API:", error);
+      return "";
+    }
+  };
+
+    const fetchData = async () => {
+      const data = await handleFetchHello();
+      setHello(data);
+    };
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
+      <Button onClick={fetchData}>Nhấp để hiện</Button>
+      <h1>{hello ? hello : "Loading..."}</h1>
+      <Upload {...props}>
+      <Button icon={<UploadOutlined />}>Click to Upload</Button>
+    </Upload>
     </div>
   );
 };
