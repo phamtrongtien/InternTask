@@ -5,12 +5,6 @@ import {
 import { MsalProvider, useMsal } from "@azure/msal-react";
 import { useEffect, useState } from "react";
 
-// Thêm font Inter qua CSS (nhớ thêm link Google Fonts vào index.html hoặc public/index.html)
-/*
-<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
-*/
-
-// Interface cho dữ liệu profile
 interface ProfileData {
     displayName: string;
     userPrincipalName: string;

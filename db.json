@@ -3,247 +3,296 @@
     {
       "id": "1",
       "title": "Làm bài tập React",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "2",
       "title": "Học Redux Toolkit",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "3",
       "title": "Xem tutorial useMemo",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "4",
       "title": "Tạo project quản lý task",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "5",
       "title": "Cập nhật CV",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "6",
       "title": "Đọc tài liệu về API",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "7",
       "title": "Luyện tập Ant Design Table",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "8",
       "title": "Tạo component Task2",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "9",
       "title": "Thử nghiệm filter completed",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "10",
       "title": "Tối ưu hiệu năng với useMemo",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "11",
       "title": "Cập nhật i18n",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "12",
       "title": "Học cách dùng useSelector",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "13",
       "title": "Fix lỗi UI",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "14",
       "title": "Cài đặt json-server",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "15",
       "title": "Test giao diện Task2",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "16",
       "title": "Thêm chức năng toggle",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "17",
       "title": "Tạo Redux slice",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "18",
       "title": "Tạo alert khi input rỗng",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "19",
       "title": "Viết style cho bảng",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "20",
       "title": "Tìm hiểu RowKey Table",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "21",
       "title": "Cập nhật giao diện filter",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "22",
       "title": "Viết hàm tính số task hoàn thành",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "23",
       "title": "Thêm tính năng xóa",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "24",
       "title": "Tạo confirm khi xóa",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "25",
       "title": "Tối ưu render",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "26",
       "title": "Thêm spacing cho input",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "27",
       "title": "Dịch nội dung i18n",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "28",
       "title": "Test với nhiều dữ liệu",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "29",
       "title": "Kiểm tra task chưa hoàn thành",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "30",
       "title": "Giả lập dữ liệu bằng db.json",
-      "completed": false
-    },
-    {
-      "id": "31",
-      "title": "Tối ưu performance filter",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "32",
       "title": "Tách component nhỏ hơn",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "33",
       "title": "Viết unit test",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "34",
       "title": "Thêm redux persist",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "35",
       "title": "Bắt lỗi nhập liệu",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "36",
       "title": "Bổ sung pagination",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "37",
       "title": "Thêm trạng thái loading",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "38",
       "title": "Tự động focus input",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "39",
       "title": "Giới hạn độ dài task",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "40",
       "title": "Tạo theme màu",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "41",
       "title": "Hỗ trợ dark mode",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "42",
       "title": "Kiểm tra hiệu năng bảng",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "43",
       "title": "Tự động scroll xuống cuối",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "44",
       "title": "Tạo log khi thêm task",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "45",
       "title": "Lưu task vào localStorage",
-      "completed": true
+      "completed": true,
+      "attachment": ""
     },
     {
       "id": "46",
       "title": "Tách i18n riêng",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "47",
       "title": "Hiển thị thời gian thêm task",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "48",
       "title": "Ẩn hiện task theo điều kiện",
-      "completed": false
+      "completed": false,
+      "attachment": ""
     },
     {
       "id": "49",
       "title": "tạo sharepoint và login sharepoint",
-      "completed": false
+      "completed": false,
+      "attachment": ""
+    },
+    {
+      "id": "52",
+      "title": "oke",
+      "completed": false,
+      "attachmentUrl": "https://1work.sharepoint.com/sites/eofficev3/_layouts/15/Doc.aspx?sourcedoc=%7B9882A757-810E-4198-A6DC-B00F01F672C9%7D&file=btchuong2part1%20(1).docx&action=default&mobileredirect=true"
     }
   ]
 }

@@ -62,7 +62,7 @@ const UserManager: React.FC = () => {
         </button>
       </div>
 
-      {/* Danh sách người dùng */}
+      
       <ul className="space-y-4">
         {users.map(user => (
           <li

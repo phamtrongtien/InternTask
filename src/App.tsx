@@ -58,7 +58,7 @@ function App(): React.ReactElement {
         <Route path="/userManager" element={<UserManager />} />
         {/* <Route path='/sp' element={<SharePointLogin />} /> */}
         <Route path='/home' element={<Home />} />
-        <Route path='/task3' element={<Task3/>}/>
+        <Route path='/task3' element={<Task3 />} />
       </Routes>
     </div>
   );

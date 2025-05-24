@@ -5,6 +5,7 @@ interface Task {
   id: string; 
   title: string;
   completed: boolean;
+  attachmentUrl: string; // thêm field mới
 }
 
 interface TaskState {
@@ -22,10 +23,17 @@ const taskSlice = createSlice({
   initialState,
   reducers: {
     setTasks(state, action: PayloadAction<Task[]>) {
-      state.tasks = action.payload;
+      state.tasks = action.payload.map(task => ({
+        ...task,
+        attachmentUrl: task.attachmentUrl ?? "",
+      }));
     },
     addTask(state, action: PayloadAction<Task>) {
-      state.tasks.push(action.payload);
+      const newTask = {
+        ...action.payload,
+        attachmentUrl: action.payload.attachmentUrl ?? "",
+      };
+      state.tasks.push(newTask);
     },    
     toggleTask(state, action: PayloadAction<string>) {
       const task = state.tasks.find(t => t.id === action.payload);

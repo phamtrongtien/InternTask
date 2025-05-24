@@ -6,6 +6,8 @@ interface Task {
   id:  string;
   title: string;
   completed: boolean;
+  attachmentUrl: string; // thêm field mới
+
 }
 export const getT = async (): Promise<Task[]> => {
   const res = await axios.get<Task[]>(`${API_BASE}/tasks`);

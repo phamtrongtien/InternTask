@@ -7,7 +7,7 @@ const Greeting: React.FC = () => {
   const [hello, setHello] = useState('');
   const props = {
     name: 'file',
-    action: 'http://localhost:3000/api/upload', // API backend upload file
+    action: 'http://localhost:3000/api/upload',
     onChange(info: any) {
       if (info.file.status === 'done') {
         message.success(`${info.file.name} file uploaded successfully`);

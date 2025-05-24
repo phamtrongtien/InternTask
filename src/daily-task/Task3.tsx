@@ -72,7 +72,7 @@ const Task3: React.FC = () => {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('accessToken', accessToken);
-console.log(file)
+        console.log(file)
         const res = await fetch('http://localhost:3000/sharepoint/upload', {
           method: 'POST',
           body: formData,
