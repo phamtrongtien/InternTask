@@ -8,10 +8,10 @@
   "add_name": "Nhập tên của bạn",
   "hi_me": "chào tôi",
   "title_manager": "Quản lý tài khoản",
-  "name":"Tên",
-  "update":"Cập nhật",
-  "delete":"Xóa",
-  "add":"Thêm mới",
+  "name": "Tên",
+  "update": "Cập nhật",
+  "delete": "Xóa",
+  "add": "Thêm mới",
   "filter": {
     "all": "Tất cả",
     "completed": "Đã hoàn thành",
@@ -19,6 +19,7 @@
   },
   "title_table": {
     "check": "Hoàn thành",
+    "attachment": "Đính kèm",
     "name": "Công việc",
     "action": "Hành động"
   },

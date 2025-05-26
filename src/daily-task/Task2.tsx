@@ -5,22 +5,23 @@ import { useTranslation } from 'react-i18next';
 import type { ColumnsType } from 'antd/es/table';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../redux/store';
-import { addTask, toggleTask, deleteTask, setFilter, setTasks } from '../redux/taskSlice'; 
+import { addTask, toggleTask, deleteTask, setFilter, setTasks } from '../redux/taskSlice';
 import { addT, deleteT, getT } from '../service/taskApi';
 
 import { useMsal, useIsAuthenticated } from "@azure/msal-react";
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
 import { loginRequest } from "../../authConfig";
 
+import type { UploadFile } from 'antd/es/upload/interface';
+
 interface Task {
   id: string;
   title: string;
   completed: boolean;
-  attachmentUrl: string;
+  attachmentUrl: string[];
 }
 
 const Task2: React.FC = () => {
-  // MSAL Authentication
   const { instance, accounts } = useMsal();
   const isAuthenticated = useIsAuthenticated();
   const account = accounts && accounts.length > 0 ? accounts[0] : null;
@@ -31,12 +32,11 @@ const Task2: React.FC = () => {
   const { tasks, filter } = useSelector((state: RootState) => state.tasks);
 
   const [task, setTask] = useState('');
-  const [uploadingFile, setUploadingFile] = useState<File | null>(null);
+  const [uploadingFiles, setUploadingFiles] = useState<UploadFile[]>([]);
   const [uploading, setUploading] = useState(false);
-  const inputRef = useRef<Input>(null);
+  const inputRef = useRef(null);
 
   const counter = useRef(0);
-
 
   useEffect(() => {
     async function fetchTasks() {
@@ -44,13 +44,13 @@ const Task2: React.FC = () => {
         const data = await getT();
         counter.current = data.length;
         dispatch(setTasks(data));
+
       } catch (error) {
         console.error('Failed to fetch tasks:', error);
       }
     }
     fetchTasks();
   }, [dispatch]);
-
 
   const filteredTasks = useMemo(() => {
     if (filter === 'completed') return tasks.filter(task => task.completed);
@@ -87,34 +87,48 @@ const Task2: React.FC = () => {
     }
   };
 
-  const uploadFileToSP = async (file: File): Promise<string | null> => {
+  // Upload nhiều file, trả về mảng url
+  const uploadFilesToSP = async (files: UploadFile[]): Promise<string[] | null> => {
     const accessToken = await getAccessToken();
-    if (!accessToken) {
-      return null;
-    }
+    if (!accessToken) return null;
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('accessToken', accessToken);
+    const urls: string[] = [];
 
-    try {
-      const res = await fetch('http://localhost:3000/sharepoint/upload', {
-        method: 'POST',
-        body: formData,
-      });
-      if (!res.ok) {
-        const errorText = await res.text();
-        alert(`Upload lỗi: ${errorText}`);
+    for (const file of files) {
+      if (!file.originFileObj) continue;
+      const formData = new FormData();
+      formData.append('file', file.originFileObj);
+      formData.append('accessToken', accessToken);
+
+      try {
+        const res = await fetch('http://localhost:3000/sharepoint/upload', {
+          method: 'POST',
+          body: formData,
+        });
+        if (!res.ok) {
+          const errorText = await res.text();
+          alert(`Upload lỗi: ${errorText}`);
+          return null;
+        }
+
+        const data = await res.json(); // data là mảng UploadResult[]
+        console.log(data);
+        data.forEach((item: any) => {
+          if (item.success && item.data && item.data.webUrl) {
+            urls.push(item.data.webUrl);
+          }
+        });
+
+      } catch (err) {
+        alert("Upload thất bại.");
+        console.error(err);
         return null;
       }
-      const data = await res.json();
-      return data.webUrl || null;
-    } catch (err) {
-      alert("Upload thất bại.");
-      console.error(err);
-      return null;
     }
+
+    return urls;
   };
+
 
   // Thêm task mới
   const handleAdd = async () => {
@@ -125,29 +139,29 @@ const Task2: React.FC = () => {
 
     setUploading(true);
 
-    let attachmentUrl: string = '';
-    if (uploadingFile) {
-      const url = await uploadFileToSP(uploadingFile);
-      if (!url) {
+    let attachmentUrls: string[] = [];
+
+    if (uploadingFiles.length > 0) {
+      const urls = await uploadFilesToSP(uploadingFiles);
+      if (!urls) {
+        setUploading(false);
         return;
       }
-      attachmentUrl=url;
+      attachmentUrls = urls;
     }
 
     const newTask: Task = {
-        id: (counter.current += 1).toString(),
-        title: task.trim(),
-        completed: false,
-        attachmentUrl,
-      };
-      
+      id: (counter.current += 1).toString(),
+      title: task.trim(),
+      completed: false,
+      attachmentUrl: attachmentUrls,
+    };
 
     try {
       await addT(newTask);
       dispatch(addTask(newTask));
       setTask('');
-      setUploadingFile(null);
-      inputRef.current?.focus();
+      setUploadingFiles([]);
     } catch (error) {
       alert(t('add_failed') || "Thêm task thất bại");
       console.error(error);
@@ -156,7 +170,6 @@ const Task2: React.FC = () => {
     }
   };
 
-  // Cấu hình các cột bảng
   const columns: ColumnsType<Task> = [
     {
       title: t('title_table.check'),
@@ -183,15 +196,24 @@ const Task2: React.FC = () => {
       title: t('title_table.attachment') || 'Đính kèm',
       dataIndex: 'attachmentUrl',
       key: 'attachmentUrl',
-      render: (url: string | undefined) => url ? (
-        <a href={url} download>
-         Tải file
-        </a>
-      ) : (
-        <span>Không có</span>
-      ),
-      
-    },
+      render: (urls?: string[]) => {
+        if (!Array.isArray(urls) || urls.length === 0) {
+          return <span>Không có</span>;
+        }
+        return (
+          <>
+            {urls.map((url, idx) => (
+              <div key={idx}>
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  Tải file {idx + 1}
+                </a>
+              </div>
+            ))}
+          </>
+        );
+      },
+    }
+    ,
     {
       title: t('title_table.action'),
       key: 'action',
@@ -238,16 +260,29 @@ const Task2: React.FC = () => {
               onPressEnter={handleAdd}
               className="w-full sm:w-72 m-2"
             />
-            <Upload 
+            <Upload
+              multiple
               beforeUpload={file => {
-                setUploadingFile(file);
-                return false;
+                const newFile: UploadFile = {
+                  uid: file.uid || `${Date.now()}-${file.name}`,
+                  name: file.name,
+                  status: 'done',
+                  size: file.size,
+                  type: file.type,
+                  originFileObj: file,
+                };
+                setUploadingFiles(prev => [...prev, newFile]);
+                return false; // ngăn upload tự động
               }}
+              onRemove={file => {
+                setUploadingFiles(prev => prev.filter(f => f.uid !== file.uid));
+              }}
+              fileList={uploadingFiles}
               className="m-2"
             >
               <Button icon={<UploadOutlined />}>Chọn file đính kèm</Button>
             </Upload>
-            <Button 
+            <Button
               className="mt-2 sm:mt-0 sm:ml-2 w-32"
               type="primary"
               htmlType="button"
@@ -261,30 +296,29 @@ const Task2: React.FC = () => {
           <h2 className="mt-8 mb-4 text-xl font-semibold">{t('title_list_task')}</h2>
 
           <Radio.Group
-            onChange={(e) => dispatch(setFilter(e.target.value))}
+            className="mb-3"
             value={filter}
-            className="mb-4"
-          >
-            <Radio.Button value="all">{t('filter.all')}</Radio.Button>
-            <Radio.Button value="completed">{t('filter.completed')}</Radio.Button>
-            <Radio.Button value="pending">{t('filter.pending')}</Radio.Button>
-          </Radio.Group>
+            onChange={(e) => dispatch(setFilter(e.target.value))}
+            options={[
+              { label: t('filter_all'), value: 'all' },
+              { label: t('filter_completed'), value: 'completed' },
+              { label: t('filter_pending'), value: 'pending' },
+            ]}
+            optionType="button"
+            buttonStyle="solid"
+          />
 
-          <Table dataSource={filteredTasks} columns={columns} pagination={{ pageSize: 15 }} rowKey="id" />
+          <Table
+            dataSource={filteredTasks}
+            columns={columns}
+            rowKey="id"
+            pagination={{ pageSize: 10 }}
+          />
 
-          <div className="mt-6 space-y-1 text-sm text-gray-700">
-            <p>{t('title_footer.total_task')}: {tasks.length}</p>
-            <p>{t('title_footer.task_done')}: {tasks.filter(t => t.completed).map(t => t.title).join(', ')}</p>
-            <p>{t('title_footer.number_task_done')}: {completedCount}</p>
-            <p>{t('title_footer.number_task_reject')}: {remainingCount}</p>
+          <div className="mt-4 flex justify-between text-sm text-gray-600">
+            <span>{t('completed')}: {completedCount}</span>
+            <span>{t('remaining')}: {remainingCount}</span>
           </div>
-
-          <button
-            className="mt-5 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-            onClick={() => instance.logout()}
-          >
-            {t('logout')}
-          </button>
         </div>
       )}
     </div>

@@ -7,11 +7,11 @@
   "button_add": "Add",
   "add_name": "Enter name",
   "hi_me": "Hi me",
-  "title_manager":"Account Management",
-  "name":"Name",
-  "update":"Update",
-  "delete":"Delete",
-  "add":"Add new",
+  "title_manager": "Account Management",
+  "name": "Name",
+  "update": "Update",
+  "delete": "Delete",
+  "add": "Add new",
   "filter": {
     "all": "All",
     "completed": "Completed",
@@ -19,6 +19,7 @@
   },
   "title_table": {
     "check": "Checked",
+    "attachment": "attachment",
     "name": "Task",
     "action": "Action"
   },
