@@ -12,6 +12,7 @@
   "update": "Update",
   "delete": "Delete",
   "add": "Add new",
+  "button_add_file":"Choose file attachment",
   "filter": {
     "all": "All",
     "completed": "Completed",

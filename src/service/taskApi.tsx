@@ -6,7 +6,7 @@ interface Task {
   id:  string;
   title: string;
   completed: boolean;
-  attachmentUrl: string; // thêm field mới
+  attachmentUrl: string[]; // thêm field mới
 
 }
 export const getT = async (): Promise<Task[]> => {

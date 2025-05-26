@@ -35,14 +35,13 @@ const Task2: React.FC = () => {
   const [uploadingFiles, setUploadingFiles] = useState<UploadFile[]>([]);
   const [uploading, setUploading] = useState(false);
   const inputRef = useRef(null);
+  const [load, setLoad] = useState(false);
 
-  const counter = useRef(0);
 
   useEffect(() => {
     async function fetchTasks() {
       try {
-        const data = await getT();
-        counter.current = data.length;
+        const data : Task[] = await getT();
         dispatch(setTasks(data));
 
       } catch (error) {
@@ -50,7 +49,7 @@ const Task2: React.FC = () => {
       }
     }
     fetchTasks();
-  }, [dispatch]);
+  }, [dispatch,load]);
 
   const filteredTasks = useMemo(() => {
     if (filter === 'completed') return tasks.filter(task => task.completed);
@@ -86,7 +85,11 @@ const Task2: React.FC = () => {
       }
     }
   };
-
+  const handleLogout = () => {
+    instance.logoutPopup().catch((error) => {
+      console.error("Logout error:", error);
+    });
+  };
   // Upload nhiều file, trả về mảng url
   const uploadFilesToSP = async (files: UploadFile[]): Promise<string[] | null> => {
     const accessToken = await getAccessToken();
@@ -207,7 +210,7 @@ const Task2: React.FC = () => {
           <>
             {urls.map((url, idx) => (
               <div key={idx}>
-                <a href={url} target="_blank" rel="noopener noreferrer">
+                <a href={url} download target="_blank" rel="noopener noreferrer">
                   Tải file {idx + 1}
                 </a>
               </div>
@@ -222,12 +225,13 @@ const Task2: React.FC = () => {
       key: 'action',
       render: (_, record) => (
         <Button danger htmlType="button" onClick={async () => {
+          console.log("🧩 ID của task:", record.id); 
           const confirm = window.confirm(t('confirm_delete') || 'Xác nhận xóa?');
           if (confirm) {
             try {
               await deleteT(record.id);
               dispatch(deleteTask(record.id));
-              counter.current -= 1;
+              setLoad(!load)
             } catch {
               alert(t('delete_failed') || 'Xóa thất bại!');
             }
@@ -283,7 +287,7 @@ const Task2: React.FC = () => {
               fileList={uploadingFiles}
               className="m-2"
             >
-              <Button icon={<UploadOutlined />}>Chọn file đính kèm</Button>
+                <Button icon={<UploadOutlined />}>{ t('button_add_file')}</Button>
             </Upload>
             <Button
               className="mt-2 sm:mt-0 sm:ml-2 w-32"
@@ -303,9 +307,9 @@ const Task2: React.FC = () => {
             value={filter}
             onChange={(e) => dispatch(setFilter(e.target.value))}
             options={[
-              { label: t('filter_all'), value: 'all' },
-              { label: t('filter_completed'), value: 'completed' },
-              { label: t('filter_pending'), value: 'pending' },
+              { label: t('filter.all'), value: 'all' },
+              { label: t('filter.completed'), value: 'completed' },
+              { label: t('filter.pending'), value: 'pending' },
             ]}
             optionType="button"
             buttonStyle="solid"
@@ -321,7 +325,13 @@ const Task2: React.FC = () => {
           <div className="mt-4 flex justify-between text-sm text-gray-600">
             <span>{t('completed')}: {completedCount}</span>
             <span>{t('remaining')}: {remainingCount}</span>
-          </div>
+            </div>
+            <button
+            onClick={handleLogout}
+            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 mt-4"
+          >
+            Đăng xuất
+          </button>
         </div>
       )}
     </div>

@@ -12,6 +12,7 @@
   "update": "Cập nhật",
   "delete": "Xóa",
   "add": "Thêm mới",
+  "button_add_file":"chọn file đính kèm",
   "filter": {
     "all": "Tất cả",
     "completed": "Đã hoàn thành",
