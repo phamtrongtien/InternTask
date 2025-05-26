@@ -55,3 +55,17 @@ export async function addTaskApi(task: { title: string; completed: boolean; atta
 
   return await res.json(); // trả về task vừa thêm, có id từ DB
 }
+export async function toggleTaskApi(id: string): Promise<Task>{
+  const res = await fetch(`http://localhost:3000/tasks/${id}/completed`, {
+    method: 'PUT',
+    headers: {
+      'ContentType': 'application/json',
+      
+    },
+  })
+  if (!res.ok) {
+    throw new Error(`Falsed to toggle task:${res.statusText}`);
+
+  }
+  return await res.json();
+}

@@ -6,7 +6,7 @@ import type { ColumnsType } from 'antd/es/table';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../redux/store';
 import { addTask, toggleTask, deleteTask, setFilter, setTasks } from '../redux/taskSlice';
-import { addT, addTaskApi, deleteT, getT } from '../service/taskApi';
+import { addT, addTaskApi, deleteT, getT, toggleTaskApi } from '../service/taskApi';
 
 import { useMsal, useIsAuthenticated } from "@azure/msal-react";
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
@@ -85,6 +85,19 @@ const Task2: React.FC = () => {
       }
     }
   };
+  const handleToggle = async (id: string) => {
+    try {
+      const updatedTask = await toggleTaskApi(id);
+      dispatch(toggleTask(updatedTask.id));
+      setLoad(prev => !prev);
+      setLoad(!load)
+    } catch (error) {
+      console.error("Toggle task error:", error);
+      alert(t('toggle_failed') || "Thay đổi trạng thái thất bại");
+    }
+  };
+  
+  
   const handleLogout = () => {
     instance.logoutPopup().catch((error) => {
       console.error("Logout error:", error);
@@ -184,7 +197,7 @@ const Task2: React.FC = () => {
       render: (_, record) => (
         <Checkbox
           checked={record.completed}
-          onChange={() => dispatch(toggleTask(record.id))}
+          onChange={()=>handleToggle(record.id)}
         />
       ),
     },
@@ -257,7 +270,7 @@ const Task2: React.FC = () => {
         </button>
       ) : (
         <div className="p-5 bg-white shadow-lg w-full max-w-3xl">
-          <div className="p-5 flex flex-col sm:flex-row items-center sm:items-start">
+          <div className="p-5 flex items-center sm:items-start">
             <h1 className="text-2xl font-bold mb-4 sm:mb-0 sm:mr-4">{t('title_add')}</h1>
             <Input
               ref={inputRef}
@@ -265,7 +278,7 @@ const Task2: React.FC = () => {
               value={task}
               onChange={(e) => setTask(e.target.value)}
               onPressEnter={handleAdd}
-              className="w-full sm:w-72 m-2"
+              className="w-full sm:w-72 m-4"
             />
             <Upload
               multiple
