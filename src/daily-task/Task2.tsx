@@ -6,7 +6,7 @@ import type { ColumnsType } from 'antd/es/table';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../redux/store';
 import { addTask, toggleTask, deleteTask, setFilter, setTasks } from '../redux/taskSlice';
-import { addT, deleteT, getT } from '../service/taskApi';
+import { addT, addTaskApi, deleteT, getT } from '../service/taskApi';
 
 import { useMsal, useIsAuthenticated } from "@azure/msal-react";
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
@@ -136,11 +136,11 @@ const Task2: React.FC = () => {
       alert(t('alert'));
       return;
     }
-
+  
     setUploading(true);
-
+  
     let attachmentUrls: string[] = [];
-
+  
     if (uploadingFiles.length > 0) {
       const urls = await uploadFilesToSP(uploadingFiles);
       if (!urls) {
@@ -149,17 +149,20 @@ const Task2: React.FC = () => {
       }
       attachmentUrls = urls;
     }
-
-    const newTask: Task = {
-      id: (counter.current += 1).toString(),
+  
+    const newTask = {
       title: task.trim(),
       completed: false,
       attachmentUrl: attachmentUrls,
     };
-
+  
     try {
-      await addT(newTask);
-      dispatch(addTask(newTask));
+      // Gọi API POST NestJS
+      const savedTask = await addTaskApi(newTask);
+  
+      // Cập nhật redux store với task có id từ DB (nếu backend trả về id)
+      dispatch(addTask(savedTask));
+  
       setTask('');
       setUploadingFiles([]);
     } catch (error) {
@@ -169,7 +172,7 @@ const Task2: React.FC = () => {
       setUploading(false);
     }
   };
-
+  
   const columns: ColumnsType<Task> = [
     {
       title: t('title_table.check'),
